@@ -1,0 +1,11 @@
+FrameTab {
+    -fx-background-color: rgba(0, 0, 0, .8);
+}
+
+ListView {
+    -fx-background-color: rgba(0, 0, 0, .5);
+}
+
+Label {
+    -fx-fill: white;
+}
