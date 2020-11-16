@@ -1,6 +1,7 @@
 package xyz.dreeks.audhumla;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -9,16 +10,20 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import xyz.dreeks.audhumla.config.Configuration;
+import xyz.dreeks.audhumla.config.Settings;
 import xyz.dreeks.audhumla.gui.BorderlessScene;
 import xyz.dreeks.audhumla.gui.FrameTab;
 import xyz.dreeks.audhumla.manifests.VersionManifest;
+import xyz.dreeks.audhumla.model.Account;
 import xyz.dreeks.audhumla.os.*;
 
 
 public class Main extends Application {
 
+    public static Account defaultAccount;
     public static final Configuration config = Configuration.load();
-    public static final Gson gson = new Gson();
+    public static final Settings settings = Settings.load();
+    public static final Gson gson = (new GsonBuilder()).setPrettyPrinting().create();
     public static Vibrancy vibrancy;
 
     public static VersionManifest versionsAvailable;

@@ -1,0 +1,26 @@
+ListView {
+    -fx-background-color: transparent;
+}
+
+.list-cell:filled:selected:focused, .list-cell:filled:selected {
+    -fx-background-color: rgba(255, 103, 104, .6);
+    -fx-text-fill: #263859;
+    -fx-font-weight: bold;
+}
+
+.list-cell {
+    -fx-text-fill: #6b778d;
+}
+
+.list-cell:odd {
+    -fx-background-color: rgba(11, 16, 29, .6);
+}
+
+.list-cell:even {
+    -fx-background-color: rgba(13, 20, 35, .6);
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: rgba(220, 84, 84, .6);
+    -fx-text-fill: #263859;
+}

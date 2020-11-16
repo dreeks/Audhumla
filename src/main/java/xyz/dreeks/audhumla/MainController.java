@@ -1,40 +1,71 @@
 package xyz.dreeks.audhumla;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TabPane;
-import xyz.dreeks.audhumla.manifests.ManifestVersion;
-import xyz.dreeks.audhumla.manifests.Version;
-import xyz.dreeks.audhumla.manifests.VersionManifest;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import xyz.dreeks.audhumla.gui.controls.ProfileSelector;
+import xyz.dreeks.audhumla.exception.ProfileError;
+import xyz.dreeks.audhumla.gui.panels.AccountPanel;
+import xyz.dreeks.audhumla.model.Account;
+import xyz.dreeks.audhumla.model.BindedAccount;
+import xyz.dreeks.audhumla.profiles.Profile;
 
 public class MainController {
+
+    private ObservableList<Profile> profiles;
+
+    private BindedAccount bindedAccount;
 
     @FXML
     private Label username;
 
     @FXML
+    private ProfileSelector profileSelector;
+
+    @FXML
     public TabPane tabPane;
 
     @FXML
-    public ListView tmpList;
+    public Tab tabAccounts;
 
-    public Version selectedVersion;
+    @FXML
+    public AccountPanel accountPanel;
 
     public void initialize() {
-        tmpList.setItems(FXCollections.observableArrayList(Main.versionsAvailable.versions));
+        try {
+            this.profiles = Profile.load();
+        } catch (ProfileError profileError) {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setTitle("Corrupted profile found");
+            a.setContentText(profileError.getMessage());
+            a.showAndWait();
 
-        tmpList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            try {
-                selectedVersion = Main.gson.fromJson(Utils.fetchURL(((ManifestVersion)newValue).url), Version.class);
-                System.out.println(selectedVersion.mainClass);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            this.profiles = FXCollections.observableArrayList();
+        }
+
+        this.profileSelector.setProfiles(this.profiles);
+        this.bindedAccount = new BindedAccount(Main.defaultAccount);
+
+        this.username.textProperty().bind(this.bindedAccount.username);
+
+        this.bindedAccount.id.addListener((o, old, n) -> {
+            ((ImageView)this.username.getGraphic()).setImage(new Image(Main.config.getCrafatarURL(this.bindedAccount.id.get())));
         });
+
+        ((ImageView)this.username.getGraphic()).setImage(new Image(Main.config.getCrafatarURL(this.bindedAccount.id.get())));
     }
+
+    public void onClickUsername() {
+        this.tabPane.getSelectionModel().select(this.tabAccounts);
+    }
+
+    public void setAccount(Account a) {
+        this.bindedAccount.setAccount(a);
+    }
+
 }

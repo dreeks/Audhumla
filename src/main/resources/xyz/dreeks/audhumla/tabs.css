@@ -25,17 +25,17 @@
 {
     -fx-border-style: hidden hidden solid hidden;
     -fx-border-width: 2;
-    -fx-border-color: rgba(100, 100, 100);
+    -fx-border-color: #ff6768;
 }
 
 .tab .tab-label {
     -fx-alignment: CENTER;
-    -fx-text-fill: #828282;
+    -fx-text-fill: #6b778d;
     -fx-font-size: 12px;
     -fx-font-weight: bold;
 }
 
 .tab:selected .tab-label {
     -fx-alignment: CENTER;
-    -fx-text-fill: #96b946;
+    -fx-text-fill: #ff6768;
 }

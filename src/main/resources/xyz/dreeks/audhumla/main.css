@@ -1,11 +1,40 @@
-FrameTab {
-    -fx-background-color: rgba(0, 0, 0, .8);
+@font-face {
+    font-family: 'Montserrat';
+    src: url('./Montserrat-Regular.ttf');
 }
 
-ListView {
-    -fx-background-color: rgba(0, 0, 0, .5);
+* {
+    /*
+    -fx-font-family: 'Montserrat';
+    -fx-font-weight: bold;
+     */
+}
+
+#tabPane {
+    -fx-background-color: rgba(23, 34, 59, .8); // #17223b
 }
 
 Label {
-    -fx-fill: white;
+    -fx-text-fill: #6b778d;
+}
+
+.button {
+    -fx-background-color: #17223b;
+    -fx-text-fill: #6b778d;
+}
+
+.button:hover {
+    -fx-background-color: #263859;
+}
+
+.button:armed {
+    -fx-background-color: #223250;
+}
+
+.button-profile-selector {
+    -fx-padding: 2 5 2 5;
+}
+
+Label#username {
+    -fx-text-fill: #ff6768;
 }

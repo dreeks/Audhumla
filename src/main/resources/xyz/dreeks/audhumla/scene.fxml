@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 <?import xyz.dreeks.audhumla.gui.FrameTab?>
+<?import xyz.dreeks.audhumla.gui.controls.ProfileSelector?>
+<?import xyz.dreeks.audhumla.gui.panels.AccountPanel?>
 
 <FrameTab fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.dreeks.audhumla.MainController">
    <tabs>
@@ -32,43 +32,22 @@
                               </ImageView>
                            </children>
                         </VBox>
-                        <HBox alignment="CENTER">
-                           <children>
-                              <Button mnemonicParsing="false" text="&lt;">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets left="20.0" right="20.0" />
-                                 </HBox.margin>
-                              </Button>
-                              <Label text="1.16.3" textFill="WHITE">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </Label>
-                              <Button mnemonicParsing="false" text="&gt;">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets left="20.0" right="20.0" />
-                                 </HBox.margin>
-                              </Button>
-                           </children>
-                           <padding>
-                              <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-                           </padding>
-                        </HBox>
+                        <ProfileSelector fx:id="profileSelector" />
                         <HBox>
                            <VBox.margin>
                               <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
                            </VBox.margin>
                            <children>
-                              <HBox HBox.hgrow="ALWAYS">
+                              <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                                  <children>
                                     <Label text="Playing as " />
-                                    <Label fx:id="username" text="Oxodao" textFill="#0045fa" />
+                                    <Label fx:id="username" onMouseClicked="#onClickUsername" text="Oxodao">
+                                       <graphic>
+                                          <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" />
+                                       </graphic>
+                                       <HBox.margin>
+                                          <Insets left="10.0" />
+                                       </HBox.margin></Label>
                                  </children>
                               </HBox>
                               <Button text="Play" />
@@ -89,11 +68,11 @@
             </HBox>
         </content>
       </Tab>
-      <Tab closable="false" text="Accounts">
+      <Tab fx:id="tabAccounts" closable="false" text="Accounts">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+            <AnchorPane>
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                <AccountPanel fx:id="accountPanel" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
         </content>

@@ -17,6 +17,12 @@ public class Configuration {
     @SerializedName("assets_url")
     public String assetsURL;
 
+    @SerializedName("libraries_url")
+    public String librariesURL;
+
+    @SerializedName("yggdrasil_url")
+    public String yggdrasilURL;
+
     @SerializedName("crafatar_url")
     public String crafatarURL;
 
@@ -24,7 +30,25 @@ public class Configuration {
         Gson gson = new Gson();
         BufferedReader br = new BufferedReader(new InputStreamReader(Configuration.class.getResourceAsStream("/config.json")));
 
-        return gson.fromJson(br, Configuration.class);
+        Configuration cfg = gson.fromJson(br, Configuration.class);
+
+        if (!cfg.assetsURL.endsWith("/")) {
+            cfg.assetsURL = cfg.assetsURL + "/";
+        }
+
+        if (!cfg.librariesURL.endsWith("/")) {
+            cfg.librariesURL = cfg.librariesURL + "/";
+        }
+
+        if (!cfg.crafatarURL.endsWith("/")) {
+            cfg.crafatarURL = cfg.crafatarURL + "/";
+        }
+
+        return cfg;
+    }
+
+    public String getCrafatarURL(String id) {
+        return this.crafatarURL + (this.crafatarURL.endsWith("/") ? "" : "/") + "avatars/" + id;
     }
 
 }

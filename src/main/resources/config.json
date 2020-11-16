@@ -1,6 +1,8 @@
 {
   "launcher_title": "Audhumla launcher",
   "version_manifest": "https://aud.oxodao.fr/version_manifest.json",
-  "assets_url": "https://aud.oxodao.fr/assets/manifests/",
-  "crafatar_url": ""
+  "assets_url": "https://aud.oxodao.fr/assets/",
+  "libraries_url": "https://aud.oxodao.fr/libraries/",
+  "yggdrasil_url": "https://authserver.mojang.com/",
+  "crafatar_url": "https://crafatar.com/"
 }

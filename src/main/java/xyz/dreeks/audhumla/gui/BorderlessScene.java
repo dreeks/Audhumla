@@ -45,6 +45,7 @@ public class BorderlessScene extends Scene {
             this.primaryStage = primaryStage;
 
             this.getStylesheets().add(BorderlessScene.class.getResource("frametab.css").toExternalForm());
+            this.getStylesheets().add(BorderlessScene.class.getResource("Listview.css").toExternalForm());
 
             this.canMaximize = this.canMinimize = this.canClose = true;
         } catch (IOException e) {
