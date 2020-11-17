@@ -4,16 +4,18 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import xyz.dreeks.audhumla.Main;
 import xyz.dreeks.audhumla.gui.panels.AccountPanel;
 import xyz.dreeks.audhumla.model.Account;
+import xyz.dreeks.audhumla.utils.Utils;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-public class UserView extends VBox {
+public class UserView extends StackPane {
 
     // @TODO: Maybe try to use JavaFX properties binding
     // @TODO: It would require a Property adapter for Gson
@@ -36,6 +38,9 @@ public class UserView extends VBox {
     @FXML
     public Button setAsDefaultButton;
 
+    @FXML
+    public ImageView userHead;
+
     public UserView() {
         super();
         try {
@@ -48,8 +53,6 @@ public class UserView extends VBox {
         }
 
         this.setUserAccount(null);
-        this.setAsDefaultButton.setDisable(true);
-        this.deleteButton.setDisable(true);
     }
 
     public void setUserAccount(Account a) {
@@ -63,6 +66,8 @@ public class UserView extends VBox {
 
             this.deleteButton.setDisable(false);
             this.setAsDefaultButton.setDisable(a.isDefault());
+
+            this.userHead.setImage(Utils.loadImageForUser(this.userAccount.id));
         } else {
             this.usernameLabel.setText("-");
             this.lastUsedLabel.setText("-");
@@ -70,6 +75,8 @@ public class UserView extends VBox {
 
             this.deleteButton.setDisable(true);
             this.setAsDefaultButton.setDisable(true);
+
+            this.userHead.setImage(Utils.loadImageForUser(null));
         }
     }
 

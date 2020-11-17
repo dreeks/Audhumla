@@ -16,6 +16,7 @@ import javafx.scene.layout.HBox;
 import xyz.dreeks.audhumla.profiles.Profile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class ProfileSelector extends HBox {
 
@@ -68,8 +69,8 @@ public class ProfileSelector extends HBox {
 
     }
 
-    public void setProfiles(ObservableList<Profile> profiles) {
-        this.profiles = profiles;
+    public void setProfiles(ArrayList<Profile> profiles) {
+        this.profiles = FXCollections.observableArrayList(profiles);
 
         IntegerBinding profileListSizeProperty = Bindings.size(this.profiles);
         this.nextButton.disableProperty().bind(this.selectedProfileIndex.greaterThanOrEqualTo(profileListSizeProperty.subtract(1)));

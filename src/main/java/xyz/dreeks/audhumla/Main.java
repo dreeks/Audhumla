@@ -11,25 +11,36 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import xyz.dreeks.audhumla.config.Configuration;
 import xyz.dreeks.audhumla.config.Settings;
+import xyz.dreeks.audhumla.exception.ProfileError;
 import xyz.dreeks.audhumla.gui.BorderlessScene;
 import xyz.dreeks.audhumla.gui.FrameTab;
 import xyz.dreeks.audhumla.manifests.VersionManifest;
 import xyz.dreeks.audhumla.model.Account;
 import xyz.dreeks.audhumla.os.*;
+import xyz.dreeks.audhumla.profiles.Profile;
+import xyz.dreeks.audhumla.utils.Observer;
+
+import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 public class Main extends Application {
 
     public static Account defaultAccount;
+    public static VersionManifest versionsAvailable;
+    public static ArrayList<Profile> profiles;
+
     public static final Configuration config = Configuration.load();
     public static final Settings settings = Settings.load();
+
     public static final Gson gson = (new GsonBuilder()).setPrettyPrinting().create();
     public static Vibrancy vibrancy;
 
-    public static VersionManifest versionsAvailable;
-
     private static final double MIN_WIDTH = 510;
     private static final double MIN_HEIGHT = 450;
+
+    public static ArrayList<Observer<ArrayList<Profile>>> profileObserver = new ArrayList<>();
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -74,7 +85,7 @@ public class Main extends Application {
         Main.vibrancy.applyVibrancy(stage);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         switch (xyz.dreeks.audhumla.os.Utils.getOS()) {
             case OSX:
                 Main.vibrancy = new VibrancyOSX();
@@ -91,7 +102,7 @@ public class Main extends Application {
         }
 
         try {
-            Main.versionsAvailable = gson.fromJson(Utils.fetchURL(Main.config.versionManifest), VersionManifest.class);
+            Main.versionsAvailable = gson.fromJson(xyz.dreeks.audhumla.utils.Utils.fetchURL(Main.config.versionManifest), VersionManifest.class);
         } catch (Exception e) {
             // @TODO Handle this differently since we want the player to be able to play offline
             Alert a = new Alert(Alert.AlertType.ERROR);
@@ -101,7 +112,19 @@ public class Main extends Application {
             System.exit(1);
         }
 
-        launch(args);
+        try {
+            Main.profiles = Profile.load();
+            launch(args);
+        } catch (ProfileError profileError) {
+            // @TODO: Make it correctly (How?)
+            System.out.println("Corrupted profile found");
+            System.out.println(profileError.getMessage());
+        }
     }
 
+    public static void updateObservers() {
+        for (Observer o : Main.profileObserver) {
+            o.callback(Main.profiles);
+        }
+    }
 }

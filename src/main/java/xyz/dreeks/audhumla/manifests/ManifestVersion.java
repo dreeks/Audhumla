@@ -8,6 +8,6 @@ public class ManifestVersion {
 
     @Override
     public String toString() {
-        return type.substring(0, 1).toUpperCase() + type.substring(1).toLowerCase() + " - " + name;
+        return name;
     }
 }

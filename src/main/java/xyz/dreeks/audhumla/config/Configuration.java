@@ -17,14 +17,14 @@ public class Configuration {
     @SerializedName("assets_url")
     public String assetsURL;
 
-    @SerializedName("libraries_url")
-    public String librariesURL;
-
     @SerializedName("yggdrasil_url")
     public String yggdrasilURL;
 
     @SerializedName("crafatar_url")
     public String crafatarURL;
+
+    @SerializedName("downloads")
+    public ConfigDownloads downloads;
 
     public static Configuration load() {
         Gson gson = new Gson();
@@ -34,14 +34,6 @@ public class Configuration {
 
         if (!cfg.assetsURL.endsWith("/")) {
             cfg.assetsURL = cfg.assetsURL + "/";
-        }
-
-        if (!cfg.librariesURL.endsWith("/")) {
-            cfg.librariesURL = cfg.librariesURL + "/";
-        }
-
-        if (!cfg.crafatarURL.endsWith("/")) {
-            cfg.crafatarURL = cfg.crafatarURL + "/";
         }
 
         return cfg;

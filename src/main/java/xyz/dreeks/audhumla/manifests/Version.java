@@ -4,9 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import xyz.dreeks.audhumla.Main;
 import xyz.dreeks.audhumla.profiles.Profile;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -31,7 +29,16 @@ public class Version {
     @SerializedName("game_args")
     public Argument[] gameArgs;
 
+    public void save(Profile p) {
+        java.io.File to = new java.io.File(p.installLocation, "version.json");
+        to.getParentFile().mkdirs();
 
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(to))){
+            bw.write(Main.gson.toJson(this));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
 

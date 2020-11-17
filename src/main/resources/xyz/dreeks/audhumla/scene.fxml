@@ -15,6 +15,7 @@
 <?import xyz.dreeks.audhumla.gui.controls.ProfileSelector?>
 <?import xyz.dreeks.audhumla.gui.panels.AccountPanel?>
 
+<?import xyz.dreeks.audhumla.gui.panels.ProfilePanel?>
 <FrameTab fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.dreeks.audhumla.MainController">
    <tabs>
       <Tab closable="false" text="Minecraft">
@@ -60,13 +61,13 @@
         </content>
       </Tab>
       <Tab closable="false" text="Profiles">
-        <content>
-            <HBox>
-               <children>
-                  <ListView fx:id="tmpList" />
-               </children>
-            </HBox>
-        </content>
+          <content>
+              <AnchorPane>
+                  <children>
+                      <ProfilePanel fx:id="profilePanel" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  </children>
+              </AnchorPane>
+          </content>
       </Tab>
       <Tab fx:id="tabAccounts" closable="false" text="Accounts">
         <content>
