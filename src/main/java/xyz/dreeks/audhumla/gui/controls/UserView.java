@@ -2,7 +2,9 @@ package xyz.dreeks.audhumla.gui.controls;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
@@ -14,6 +16,7 @@ import xyz.dreeks.audhumla.utils.Utils;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class UserView extends StackPane {
 
@@ -93,16 +96,24 @@ public class UserView extends StackPane {
 
     public void deleteAccount() {
         if (this.userAccount != null) {
-            try {
-                AccountPanel ap = ((AccountPanel)this.getParent().getParent());
-                if (this.userAccount.isDefault()) {
-                    Main.settings.defaultAccountID = null;
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Removing an account");
+            alert.setHeaderText("Removing " + this.userAccount.username);
+            alert.setContentText("You are going to remove the account " + this.userAccount.username + " from the launcher. Are you sure ?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                try {
+                    AccountPanel ap = ((AccountPanel)this.getParent().getParent());
+                    if (this.userAccount.isDefault()) {
+                        Main.settings.defaultAccountID = null;
+                    }
+                    ap.accountList.getItems().remove(this.userAccount);
+                    Main.settings.accounts = new ArrayList<>(ap.accountList.getItems());
+                    Main.settings.save();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-                ap.accountList.getItems().remove(this.userAccount);
-                Main.settings.accounts = new ArrayList<>(ap.accountList.getItems());
-                Main.settings.save();
-            } catch (IOException e) {
-                e.printStackTrace();
             }
         }
     }

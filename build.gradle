@@ -6,7 +6,7 @@ plugins {
 
 dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
-    implementation 'org.hildan.fxgson:fx-gson:3.1.2'
+    implementation 'commons-codec:commons-codec:1.15'
 }
 
 repositories {

@@ -21,6 +21,7 @@ import java.util.ArrayList;
 public class ProfileSelector extends HBox {
 
     private ObservableList<Profile> profiles;
+    public Profile selectedProfile;
 
     private IntegerProperty selectedProfileIndex = new SimpleIntegerProperty(0);
     private StringProperty selectedProfileName = new SimpleStringProperty("No profiles available !");
@@ -53,18 +54,23 @@ public class ProfileSelector extends HBox {
         this.selectedProfileIndex.addListener((observable, old, val) -> {
             if (val.intValue() == -1 || this.profiles.size() == 0) {
                 this.selectedProfileName.set("No profiles available !");
+                this.selectedProfile = null;
                 return;
             }
 
-            this.selectedProfileName.set(this.profiles.get(this.selectedProfileIndex.get()).profileName);
+            Profile p = this.profiles.get(this.selectedProfileIndex.get());
+            this.selectedProfileName.set(p.profileName);
+            this.selectedProfile = p;
         });
 
         this.previousButton.setOnMouseClicked(e -> {
             this.selectedProfileIndex.set(this.selectedProfileIndex.get() - 1);
+            this.selectedProfile = this.profiles.get(this.selectedProfileIndex.get());
         });
 
         this.nextButton.setOnMouseClicked(e -> {
             this.selectedProfileIndex.set(this.selectedProfileIndex.get() + 1);
+            this.selectedProfile = this.profiles.get(this.selectedProfileIndex.get());
         });
 
     }
@@ -76,10 +82,14 @@ public class ProfileSelector extends HBox {
         this.nextButton.disableProperty().bind(this.selectedProfileIndex.greaterThanOrEqualTo(profileListSizeProperty.subtract(1)));
 
         this.selectedProfileIndex.set(0);
-        if (this.selectedProfileIndex.intValue() == -1 || this.profiles.size() == 0)
+        if (this.selectedProfileIndex.intValue() == -1 || this.profiles.size() == 0) {
             this.selectedProfileName.set("No profiles available !");
-        else
-            this.selectedProfileName.set(this.profiles.get(this.selectedProfileIndex.get()).profileName);
+            this.selectedProfile = null;
+        } else {
+            Profile p = this.profiles.get(this.selectedProfileIndex.get());
+            this.selectedProfileName.set(p.profileName);
+            this.selectedProfile = p;
+        }
     }
 
 }

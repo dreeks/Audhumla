@@ -51,7 +51,15 @@
                                        </HBox.margin></Label>
                                  </children>
                               </HBox>
-                              <Button text="Play" />
+                              <Button text="Play" onAction="#play">
+                                  <graphic>
+                                      <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                              <Image url="@gui/play.png" />
+                                          </image>
+                                      </ImageView>
+                                  </graphic>
+                              </Button>
                            </children>
                         </HBox>
                      </children>

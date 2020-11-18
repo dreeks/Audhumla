@@ -42,7 +42,3 @@ public class Version {
 
 }
 
-class Downloads {
-    public File client;
-    public File server;
-}

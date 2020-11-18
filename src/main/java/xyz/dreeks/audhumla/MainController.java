@@ -4,10 +4,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import xyz.dreeks.audhumla.downloads.ProfileDownloader;
 import xyz.dreeks.audhumla.gui.controls.ProfileSelector;
 import xyz.dreeks.audhumla.gui.panels.AccountPanel;
 import xyz.dreeks.audhumla.model.Account;
 import xyz.dreeks.audhumla.model.BindedAccount;
+import xyz.dreeks.audhumla.profiles.Profile;
 import xyz.dreeks.audhumla.utils.Utils;
 
 public class MainController {
@@ -51,4 +53,7 @@ public class MainController {
         this.bindedAccount.setAccount(a);
     }
 
+    public void play(){
+        Profile p = this.profileSelector.selectedProfile;
+    }
 }

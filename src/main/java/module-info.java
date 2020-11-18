@@ -1,5 +1,6 @@
 module audhumla {
     requires com.google.gson;
+    requires org.apache.commons.codec;
     requires javafx.fxml;
     requires javafx.controls;
 
